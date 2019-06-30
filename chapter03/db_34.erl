@@ -3,7 +3,7 @@
 % Solution to exercises in Erlang Programming (2009), by Francesco Cesarini and Simon Thompson
 % Exercise 3.4
 
--module(db).
+-module(db_34).
 -export([new/0,destroy/1,write/3,delete/2,read/2,match/2]).
 
 %% creates a new (empty) DB
