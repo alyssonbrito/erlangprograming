@@ -1,7 +1,6 @@
-% author: alyssonbrito@gmail.com
-% 2019.Jun
 % Examples from Erlang Programming (2009), by Francesco Cesarini and Simon Thompson
 % Example 4.1. The echo process
+% NOTE: module name was changed!
 
 -module(example_41).
 -export([go/0, loop/0]).
@@ -18,10 +17,10 @@ go() ->
 loop() ->
     receive
 	{From, Msg} ->
-	    From ! {self(), Msg},
-	    loop();
+	    From ! {self(), Msg};
 	stop ->
 	    true
-    end.
+    end
+    loop().
 
 
