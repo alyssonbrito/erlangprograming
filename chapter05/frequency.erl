@@ -1,3 +1,8 @@
+% Examples from Erlang Programming (2009), by Francesco Cesarini and Simon Thompson
+% Example 5.1. The frequency
+% NOTE: module name was changed!
+% NOTE 2: deallocated method was improved to check for the frequency before deallocating!
+
 -module(frequency).
 -export([start/0, stop/0, allocate/0, deallocate/1]).
 -export([init/0]).
