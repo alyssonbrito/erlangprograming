@@ -1,0 +1,11 @@
+f(). c(event_manager). c(io_handler). c(log_handler).
+event_manager:start(alarm, [{log_handler, "AlarmLog"}]).
+event_manager:send_event(alarm, {raise_alarm, 10, cabit_open}).
+event_manager:add_handler(alarm, io_handler, 1).
+event_manager:send_event(alarm, {clear_alarm, 10, cabit_open}).
+event_manager:send_event(alarm, {event, 156, link_up}).
+event_manager:get_data(alarm, io_handler).
+event_manager:delete_handler(alarm, io_handler).
+event_manager:delete_handler(alarm, crazy_name).
+event_manager:stop(alarm).
+
