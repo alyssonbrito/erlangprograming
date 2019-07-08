@@ -13,14 +13,16 @@ start() ->
 request(Int) ->
     add_two ! {request, self(), Int},
     receive
-	{result, Result} -> Result;
-	{'EXIT', _Pid, Reason} -> {error, Reason} % new message
+	    {result, Result} -> Result;
+	    {'EXIT', _Pid, Reason} -> {error, Reason} % new message
     after 1000 -> timeout
     end.
 
 loop() ->
+    io:format("Entering loop...~n"),
     receive
-	{request, Pid, Msg} ->
-	    Pid ! {result, Msg + 1}
+	    {request, Pid, Msg} ->
+	        Pid ! {result, Msg + 1}
     end,
-    loop.
+    loop().
+
