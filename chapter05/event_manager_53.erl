@@ -91,26 +91,26 @@ handle_msg({add_handler, Handler, InitData}, LoopData) ->
 handle_msg({delete_handler, Handler}, LoopData) ->
     case lists:keysearch(Handler, 1 , LoopData) of
         false -> { {error, instance} , LoopData };
-	{value, {Handler, Data} } ->
-	    Reply = {data, Handler:terminate(Data)},
-	    NewLoopData = lists:keydelete(Handler, 1, LoopData),
-	    {Reply, NewLoopData}
+	    {value, {Handler, Data} } ->
+	        Reply = {data, Handler:terminate(Data)},
+	        NewLoopData = lists:keydelete(Handler, 1, LoopData),
+	        {Reply, NewLoopData}
     end;
 handle_msg({swap_handler, OldHandler, NewHandler}, LoopData) ->
     case lists:keysearch(OldHandler, 1 , LoopData) of
         false -> { {error, instance} , LoopData };
-	{value, {Handler, Data} } ->
-        % call terminate, just like in delete
-        LeftData = Handler:terminate(Data),
-        % the init data of the new handler if the terminate of the old one
-        NewLoopData = lists:keydelete(Handler, 1, LoopData),
-        % add new handler to the reduced list (after delete)
-        {ok, [{NewHandler, NewHandler:init(LeftData)} | NewLoopData ] }
+	    {value, {Handler, Data} } ->
+            % call terminate, just like in delete
+            LeftData = Handler:terminate(Data),
+            % the init data of the new handler if the terminate of the old one
+            NewLoopData = lists:keydelete(Handler, 1, LoopData),
+            % add new handler to the reduced list (after delete)
+            {ok, [{NewHandler, NewHandler:init(LeftData)} | NewLoopData ] }
     end;
 handle_msg({get_data, Handler}, LoopData) ->
     case lists:keysearch(Handler, 1 , LoopData) of
         false -> { {error, instance} , LoopData };
-	{value, {Handler, Data} } -> { {data,Data} , LoopData}
+	    {value, {Handler, Data} } -> { {data,Data} , LoopData}
     end;
 handle_msg({send_event, Event}, LoopData) ->
     { ok, event(Event, LoopData) }.
