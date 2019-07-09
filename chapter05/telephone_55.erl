@@ -1,18 +1,18 @@
-% Examples from Erlang Programming (2009), by Francesco Cesarini and Simon Thompson
-% Example 5.5. The FSM
-% NOTE: module name define !
+%% Exercise 5.5. The FSM
+%% @reference Erlang Programming (2009), by Francesco Cesarini and Simon Thompson
+%% @reference Example 5.5 The FSM 
 
 %% States: Idle (initial) , Ringin, Dial, Connect
 %% Events: incoming , off_hook, on_hook, other_on_hook
 
--module(telephone_56).
+-module(telephone).
 -export([start/1, incoming/1, on_hook/0, off_hook/0, other_on_hook/1, dialNumber/1]).
 -export([init/1]).
 
 %% start up -> goes to idle
 start(MyOwnNumber) ->
-    Pid = spawn(telephone_56, init, [MyOwnNumber]),
-    register(telephone_56, Pid), ok.
+    Pid = spawn(telephone, init, [MyOwnNumber]),
+    register(telephone, Pid), ok.
 
 % internal helper
 init(MyOwnNumber) ->
@@ -30,13 +30,12 @@ incoming(Number) ->
     call({Number, incoming}).
 
 call(Msg) ->
-    telephone_56 ! Msg.
+    telephone ! Msg.
 
 reply_to({Number, Msg}) ->
     io:format("============================~n"),
     io:format("Send to ~p : [~p]~n",[Number, Msg]).
     %Number ! Msg.
-
 
 %% off_hook -> dial
 %% incoming -> ringing
@@ -116,13 +115,4 @@ stop_tone() ->
     io:format("STOP Tone~n").
 show_error(Error) ->
     io:format("ERROR: ~p ~n",[Error]).
-
-
-
-
-
-
-
-
-
 
