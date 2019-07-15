@@ -1,7 +1,7 @@
-% author: alyssonbrito@gmail.com
-% 2019.Jul
-% Solution to exercises in Erlang Programming (2009), by Francesco Cesarini and Simon Thompson
-% Exercise 6.1
+%% @author: alyssonbrito@gmail.com
+%% @date 2019.Jul
+%% @reference Solution to exercises in Erlang Programming (2009), by Francesco Cesarini and Simon Thompson
+%% @doc Exercise 6.1
 
 -module(echoserver_61).
 -export([start/0,print/1,stop/0]).
@@ -15,11 +15,10 @@ start() ->
 print(Term) ->
     call({Term}).
 
+%% suicide
 stop() ->
     %call(stop).
     exit(whereis(echoserver), kill).
-
-
 
 %% ------------- internal
 call(Message) when Message == stop ->
@@ -31,7 +30,7 @@ call(Message) ->
 loop() ->
     receive
     {'EXIT', Pid, Reason} ->
-        io:format("Child was kill Pid:~p Reason:~p ~n",[Pid, Reason]);
+        io:format("Child was killed Pid:~p Reason:~p ~n",[Pid, Reason]);
 	{_Pid, print, Msg} ->
 	    io:format("~p~n",[Msg]),
 	    loop();
@@ -39,4 +38,5 @@ loop() ->
 	    true
     end.
 
-
+%% c(echoserver_61).
+%% frequency_61:

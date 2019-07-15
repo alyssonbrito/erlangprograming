@@ -1,5 +1,5 @@
-% Examples from Erlang Programming (2009), by Francesco Cesarini and Simon Thompson
-% Example 5.8 Mutex
+%% @doc Example 5.8 Mutex
+%% @reference Examples from Erlang Programming (2009), by Francesco Cesarini and Simon Thompson
 % NOTE: module name was changed!
 
 -module(mutex_58).
@@ -49,4 +49,13 @@ terminate() ->
 	0 -> ok
     end.
 
+
+% c(mutex_58).
+% mutex_58:start().
+% mutex_58:wait().
+% mutex_58:wait().
+% mutex_58:signal().
+% mutex_58:wait().
+% mutex_58:signal().
+% mutex_58:stop().
 
