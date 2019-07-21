@@ -42,13 +42,25 @@ start_children([ {M, F, A, T} | ChildSpecList ]) ->
 
 %% Main loop
 restart_child(Pid, ChildList) ->
-    io:format("List of Pid:~p Child:~p~n",[Pid, ChildList]),
     {value, {Pid, T, {M,F,A}} } = lists:keysearch(Pid,1, ChildList),
+    NewList = lists:keydelete(Pid,1,ChildList),
+    io:format("Temp List after delete:~p~n",[NewList]), % just
     io:format("Found? :~p~n",[{Pid, T, M,F,A}]),
-    {ok, NewPid} = apply(M,F,A),
-    io:format("Temp List after delete:~p~n",[lists:keydelete(Pid,1,ChildList)]),
-    io:format("Adding with new pid:~p~n",[NewPid]),
-    [ {NewPid, T, {M,F,A}} | lists:keydelete(Pid,1,ChildList) ].
+    restart_child(Pid, NewList, 5).
+
+restart_child(_Pid, _ChildList, 0) -> giveUp;
+restart_child(Pid, ChildList, Tentatives) ->
+    {value, {Pid, T, {M,F,A}} } = lists:keysearch(Pid,1, ChildList),
+    try apply(M,F,A) of
+        {ok, NewPid} ->
+            io:format("Adding with new pid:~p~n",[NewPid]),
+            [ {NewPid, T, {M,F,A}} | ChildList ]
+    catch    
+            _:_ -> 
+            io:format("Error... trying again in 3s pid:~p tentatives:~p~n",[NewPid,Tentatives]),
+            sleep(3),
+            restart_child(Pid, ChildList, Tentatives-1)
+    end.
 
 loop(ChildList) ->
     receive
@@ -81,6 +93,12 @@ terminate([{Pid, _} | ChildList]) ->
     exit(Pid, kill),
     terminate(ChildList);
 terminate(_ChildList) -> ok.
+
+sleep(T) ->
+    Timeout = T * 1000, % convert to miliseconds
+    receive
+    after Timeout -> true
+    end.
 
 % f(). c(my_supervisor_63). c(add_two). f(). self().
 % my_supervisor_63:start_link(my_supervisor_63, [{add_two, start, [], permanent}]).
