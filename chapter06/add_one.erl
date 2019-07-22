@@ -1,5 +1,6 @@
-% Examples from Erlang Programming (2009), by Francesco Cesarini and Simon Thompson
-% Example 6.1. Process Links and exit signals
+%% @doc Example 6.1. Process Links and exit signals.
+%% First version
+%% @reference Examples from Erlang Programming (2009), by Francesco Cesarini and Simon Thompson
 
 -module(add_one).
 -export([start/0, request/1, loop/0]).
@@ -20,3 +21,9 @@ loop() ->
 	    Pid ! {result, Msg + 1}
     end,
     loop.
+
+% c(add_one)
+% self().
+% add_one:request(1).
+% add_one:request(blah).
+% self().
