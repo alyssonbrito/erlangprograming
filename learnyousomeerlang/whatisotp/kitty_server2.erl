@@ -54,7 +54,7 @@ terminate(Cats) ->
     exit(normal).
 
 % c(kitty_server2). c(my_server).
-% rr(kitty_server).
+% rr(kitty_server2).
 % Pid = kitty_server2:start_link().
 % Cat1 = kitty_server2:order_cat(Pid, carl, brown, "loves to burn bridges").
 % kitty_server2:return_cat(Pid, Cat1).
