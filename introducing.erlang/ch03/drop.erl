@@ -15,9 +15,9 @@
 %% as if it were in a vacuum (no air resistance). The distance is
 %% the height from which the objet falls specified in meters
 %% and the functino returns a velocity in meters per second
--spec(fall_velocity(number()) -> number()).
+%-spec(fall_velocity(number()) -> number()).
 fall_velocity(earth, Distance) -> math:sqrt(2 * 9.8 * Distance);
 fall_velocity(moon, Distance) -> math:sqrt(2 * 1.6 * Distance);
-fall_velocity(mars, Distance) -> math:sqrt(2 * 3.71 * Distance);
+fall_velocity(mars, Distance) -> math:sqrt(2 * 3.71 * Distance).
 
 
