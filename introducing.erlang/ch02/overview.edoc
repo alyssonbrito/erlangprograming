@@ -1,0 +1,9 @@
+@author Alysson Brito <alyssonbrito@gmail.com> [http://alysson.com]
+@doc Functions calculating velocies achieved by objects
+dropped in a vaccum.
+@reference fronm <a href="http://link.com">
+Introductiong Erlang </a>
+O'Relly Media, Inc. ,2017.
+@copyright 2016 by Simon St. Laurent
+@version 0.1
+

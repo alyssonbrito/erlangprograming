@@ -6,21 +6,24 @@
 -export([go/0, loop/0]).
 
 go() ->
-    Pid = spawn (example_41,loop,[]),
-    Pid ! {self(), hello},
+    Yara = spawn (example_41,loop,[]),
+    Yara ! {self(), maximiliano},
     receive
-	{Pid, Msg} -> io:format("~w~n",[Msg])
+	{_, Msg} -> io:format("~w~n",[Msg])
     end,
-    Pid ! stop.
-
+    Yara ! {self(), hello},
+    receive
+	{_, Msg1} -> io:format("~w~n",[Msg1])
+    end,
+    Yara ! stop.
 
 loop() ->
     receive
-	{From, Msg} ->
-	    From ! {self(), Msg};
+	{Remetente, Ms} ->
+	    Remetente ! {self(), Ms},
+	    loop();
 	stop ->
 	    true
-    end
-    loop().
+    end.
 
 
