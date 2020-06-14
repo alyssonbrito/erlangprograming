@@ -1,4 +1,4 @@
-%% @doc Solution to Étude 3.1 Pattern Matching
+%% @doc Solution to Étude 3.2 Guards
 %% @author: Alysson Brito <alyssonbrito@gmail.com>
 %% @copyright 2020
 %% @reference From the Book: Études for Erlang. J. David. Eisenberg
