@@ -7,6 +7,11 @@
 -module(ask_area051).
 -export([area/0]).
 
+%% @doc Read inputs form user
+%% and calculates the area of given rectangle
+%% given the height and width. Returns calculated area
+-spec(area() -> number()).
+
 area()->
     dialog().
 
@@ -43,6 +48,14 @@ get_number(Message) ->
     Prompt = Message ++ " > ",
     Input = io:get_line(Prompt),
     to_numeric(Input).
+
+%% @doc Calculates the area of given rectangle
+%% given the height and width. Returns calculated area
+%% @param atom Either rectangle, triangle or ellipse
+%% @param Shape
+%% @param N1 Width
+%% @param N2 height
+-spec(area(atom(),number(),number()) -> number()).
 
 calculate(unknown,_,_) ->
     showErrorMessage("Shape is invalid!"),
